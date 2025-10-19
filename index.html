@@ -336,6 +336,7 @@
             font-size: 4rem;
             color: rgba(100, 200, 255, 0.5);
             transition: all 0.3s ease;
+            object-fit: cover;
         }
 
         body.light-mode .image-placeholder {
@@ -446,21 +447,69 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            nav ul {
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            nav .logo {
+                font-size: 1.1rem;
+            }
+
+            .nav-right {
                 gap: 1rem;
-                font-size: 0.9rem;
+            }
+
+            nav ul {
+                gap: 0.75rem;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            .theme-toggle {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                padding: 4.5rem 1.5rem 1.5rem;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
             }
 
             .cta-buttons {
                 flex-direction: column;
+                gap: 1rem;
             }
 
             .btn {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
                 width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .gallery {
+                padding: 3rem 1rem;
+            }
+
+            .info {
+                padding: 3rem 1rem;
             }
         }
     </style>
@@ -515,24 +564,37 @@
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="image-placeholder">🎵</div>
+                 <video class="image-placeholder" autoplay muted loop>
+                    <source src="MusicLoop.mp4" type="video/mp4">   
+					Your browser does not support the video tag.
+                </video>
                 <div class="gallery-text">
                     <h3>Praise & Music</h3>
                     <p>Our choir and worship team lead us in uplifting music that glorifies God and unites our congregation.</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="image-placeholder">📚</div>
+                <video class="image-placeholder" autoplay muted loop>
+                    <source src="BibleStudyloop.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
                 <div class="gallery-text">
                     <h3>Bible Studies</h3>
                     <p>Deepen your faith through our weekly Bible studies and spiritual education programs.</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="image-placeholder">🙏</div>
+			        <video class="image-placeholder" autoplay muted loop>
+                    <source src="CrossLoop.mp4" type="video/mp4">   
+					Your browser does not support the video tag.
+                </video>
                 <div class="gallery-text">
                     <h3>Prayer Groups</h3>
-                    <p>Join our prayer circles and intercessory ministry to lift up our community and loved ones.</p>
+                    <p>Tuesday - Womens only women of worth(WOW) Prayer Group 10am-11:45am
+					</p>
+					<br>
+					<p>Wednesday - Alpha Course 7pm 
+					</p>
                 </div>
             </div>
         </div>
@@ -543,24 +605,24 @@
         <div class="info-grid">
             <div class="info-card">
                 <div class="info-card-icon">⏰</div>
-                <h3>Worship Time</h3>
-                <p><strong>Sunday:</strong> 10:30 AM<br></p>
+                <h3>Worship Times</h3>
+                <p><strong>Sunday:</strong> 10:00 AM<br><strong>Wednesday:</strong> 7:00 PM</p>
             </div>
             <div class="info-card">
                 <div class="info-card-icon">📍</div>
                 <h3>Location</h3>
-                <p>Mount Pleasant,<br>Barry, CF63 2HE</p>
+                <p>123 Faith Street<br>Your City, State 12345</p>
             </div>
             <div class="info-card">
                 <div class="info-card-icon">📞</div>
                 <h3>Contact Us</h3>
-                <p>Phone: 01446 735915<br>Email: info@mpbc.org</p>
+                <p>Phone: (555) 123-4567<br>Email: info@mpbc.org</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 Mount Pleasant Baptist Church. Let gods glory shine in your life.</p>
+        <p>&copy; 2025 Mount Pleasant Baptist Church. All God's blessings to you.</p>
     </footer>
 
     <script>
