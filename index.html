@@ -86,11 +86,25 @@
         nav .logo {
             font-size: 1.6rem;
             font-weight: 700;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        nav .logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        nav .logo span {
             background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: -1px;
         }
 
         .nav-right {
@@ -325,6 +339,8 @@
             transition: all 0.4s ease;
             cursor: pointer;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .gallery-item:hover {
@@ -364,6 +380,9 @@
 
         .gallery-text {
             padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .gallery-item h3 {
@@ -375,6 +394,35 @@
         .gallery-item p {
             color: var(--text-tertiary);
             line-height: 1.6;
+            flex: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-btn {
+            align-self: flex-start;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            border: 2px solid var(--accent-1);
+            background: transparent;
+            color: var(--accent-1);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .gallery-btn:hover {
+            background: rgba(100, 200, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 200, 255, 0.3);
+        }
+
+        body.light-mode .gallery-btn:hover {
+            background: rgba(0, 100, 255, 0.1);
+            border-color: rgba(0, 100, 255, 0.8);
+            box-shadow: 0 5px 15px rgba(0, 100, 255, 0.2);
         }
 
         /* Info Section */
@@ -471,140 +519,6 @@
             font-weight: 600;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--bg-secondary);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: 25px;
-            padding: 3rem 2.5rem;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            animation: slideUp 0.3s ease;
-            position: relative;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--accent-1);
-            transform: rotate(90deg);
-        }
-
-        .modal-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .modal-text {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-direction: column;
-        }
-
-        .modal-btn {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-        }
-
-        .modal-btn-primary {
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            color: #000;
-            box-shadow: 0 0 30px rgba(100, 200, 255, 0.4);
-        }
-
-        body.light-mode .modal-btn-primary {
-            color: white;
-        }
-
-        .modal-btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(100, 200, 255, 0.6);
-        }
-
-        .modal-btn-secondary {
-            background: transparent;
-            color: var(--accent-1);
-            border: 2px solid var(--accent-1);
-        }
-
-        .modal-btn-secondary:hover {
-            background: rgba(100, 200, 255, 0.1);
-            transform: translateY(-3px);
-        }
-
-        body.light-mode .modal-btn-secondary:hover {
-            background: rgba(0, 100, 255, 0.08);
-        }
-
         /* Footer */
         footer {
             text-align: center;
@@ -687,7 +601,10 @@
 <body>
     <nav>
         <div class="nav-top">
-            <div class="logo">Mount Pleasant Baptist Church</div>
+            <div class="logo">
+                <img src="logo.png" alt="Mount Pleasant Baptist Church Logo">
+                <span>Mount Pleasant Baptist Church</span>
+            </div>
             <button class="theme-toggle" id="themeToggle">🌙</button>
         </div>
         <div class="nav-bottom">
@@ -719,30 +636,41 @@
                 <div class="gallery-text">
                     <h3>Sunday Worship</h3>
                     <p>Join us every Sunday for inspiring worship services filled with praise, prayer, and God's word.</p>
+                    <a href="https://worship.mountpleasant.local" class="gallery-btn">Open</a>
                 </div>
             </div>
-            <div class="gallery-item">
-                <div class="image-placeholder">🤝</div>
-                <div class="gallery-text">
-                    <h3>Community Service</h3>
-                    <p>We serve our community through outreach programs, feeding ministries, and charitable giving.</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="image-placeholder">👨‍👩‍👧‍👦</div>
-                <div class="gallery-text">
-                    <h3>Family Events</h3>
-                    <p>Experience fellowship and fun with our family-friendly events and church gatherings throughout the year.</p>
-                </div>
-            </div>
+			
             <div class="gallery-item">
                  <video class="image-placeholder" autoplay muted loop>
+                    <source src="HandShake.mp4" type="video/mp4">   
+                    Your browser does not support the video tag.
+                </video>
+                <div class="gallery-text">
+                    <h3>Community</h3>
+                    <p>We are a church dedicated to serving our community through family play groups, food bank support, and meaningful outreach initiatives.</p>
+                    <a href="./community.html" class="gallery-btn">Open</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                    <video class="image-placeholder" autoplay muted loop>
+                    <source src="Seasons.mp4" type="video/mp4">   
+                    Your browser does not support the video tag.
+                </video>
+                <div class="gallery-text">
+                    <h3>Seasonal Events</h3>
+                    <p>Experience fellowship and fun with our family-friendly events and church gatherings throughout the year.</p>
+                    <a href="./SeasonalEvents.html" class="gallery-btn">Open</a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <video class="image-placeholder" autoplay muted loop>
                     <source src="MusicLoop.mp4" type="video/mp4">   
-					Your browser does not support the video tag.
+                    Your browser does not support the video tag.
                 </video>
                 <div class="gallery-text">
                     <h3>Praise & Music</h3>
                     <p>Our choir and worship team lead us in uplifting music that glorifies God and unites our congregation.</p>
+                    <a href="https://music.mountpleasant.local" class="gallery-btn">Open</a>
                 </div>
             </div>
             <div class="gallery-item">
@@ -753,20 +681,18 @@
                 <div class="gallery-text">
                     <h3>Bible Studies</h3>
                     <p>Deepen your faith through our weekly Bible studies and spiritual education programs.</p>
+                    <a href="https://biblestudies.mountpleasant.local" class="gallery-btn">Open</a>
                 </div>
             </div>
             <div class="gallery-item">
-			        <video class="image-placeholder" autoplay muted loop>
+                <video class="image-placeholder" autoplay muted loop>
                     <source src="CrossLoop.mp4" type="video/mp4">   
-					Your browser does not support the video tag.
+                    Your browser does not support the video tag.
                 </video>
                 <div class="gallery-text">
                     <h3>Prayer Groups</h3>
-                    <p>Tuesday - Womens only women of worth(WOW) Prayer Group 10am-11:45am
-					</p>
-					<br>
-					<p>Wednesday - Alpha Course 7pm 
-					</p>
+                    <p>Tuesday - Women's Prayer Group (WOW) 10am-11:45am. Wednesday - Alpha Course 7pm</p>
+                    <a href="https://prayer.mountpleasant.local" class="gallery-btn">Open</a>
                 </div>
             </div>
         </div>
@@ -778,7 +704,7 @@
             <div class="info-card">
                 <div class="info-card-icon">⏰</div>
                 <h3>Worship Times</h3>
-                <p><strong>Sunday:</strong> 10:30 AM  & Sunday School Whizz Kids</p>
+                <p><strong>Sunday:</strong> 10:30 AM<br></p>
             </div>
             <div class="info-card">
                 <div class="info-card-icon">📍</div>
@@ -788,7 +714,7 @@
             <div class="info-card">
                 <div class="info-card-icon">📞</div>
                 <h3>Contact Us</h3>
-                <p>Phone: 01446 735915<br>Email: mpbc.co.uk</p>
+                <p>Phone: (555) 123-4567<br>Email: info@mpbc.org</p>
             </div>
         </div>
     </section>
@@ -797,34 +723,9 @@
         <p>&copy; 2025 Mount Pleasant Baptist Church. All God's blessings to you.</p>
     </footer>
 
-    <!-- Join Us Modal -->
-    <div id="joinModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
-            <h2 class="modal-title">Join Us Sunday</h2>
-            <p class="modal-text">We'd love to see you at our worship service! Choose how you'd like to get in touch if you feel uneasy otherwise all are welcome.</p>
-            <div class="modal-buttons">
-                <button id="copyPhone" class="modal-btn modal-btn-primary">
-                    <span>📞</span> Copy Phone Number
-                </button>
-                <button id="copyEmail" class="modal-btn modal-btn-secondary">
-                    <span>✉️</span> Copy Email Address
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-        const joinUsBtn = document.getElementById('joinUsBtn');
-        const joinModal = document.getElementById('joinModal');
-        const closeModal = document.getElementById('closeModal');
-        const copyPhoneBtn = document.getElementById('copyPhone');
-        const copyEmailBtn = document.getElementById('copyEmail');
-
-        const phoneNumber = '01446 735915';
-        const emailAddress = '@mpbc.co.uk';
 
         // Check for saved theme preference or default to dark mode
         const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -840,40 +741,6 @@
             const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
             localStorage.setItem('theme', theme);
             themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
-        });
-
-        // Modal functionality
-        joinUsBtn.addEventListener('click', () => {
-            joinModal.classList.add('show');
-        });
-
-        closeModal.addEventListener('click', () => {
-            joinModal.classList.remove('show');
-        });
-
-        joinModal.addEventListener('click', (e) => {
-            if (e.target === joinModal) {
-                joinModal.classList.remove('show');
-            }
-        });
-
-        // Copy to clipboard functionality
-        copyPhoneBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(phoneNumber);
-            const originalText = copyPhoneBtn.innerHTML;
-            copyPhoneBtn.innerHTML = '<span>✓</span> Copied!';
-            setTimeout(() => {
-                copyPhoneBtn.innerHTML = originalText;
-            }, 2000);
-        });
-
-        copyEmailBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(emailAddress);
-            const originalText = copyEmailBtn.innerHTML;
-            copyEmailBtn.innerHTML = '<span>✓</span> Copied!';
-            setTimeout(() => {
-                copyEmailBtn.innerHTML = originalText;
-            }, 2000);
         });
     </script>
 </body>
