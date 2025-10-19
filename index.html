@@ -380,7 +380,7 @@
         /* Info Section */
         .info {
             padding: 6rem 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -388,42 +388,47 @@
 
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
         .info-card {
-            background: var(--bg-secondary);
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.1) 0%, rgba(167, 139, 250, 0.05) 100%);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: 15px;
-            padding: 2rem;
+            border: 2px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .info-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-1), var(--accent-2), transparent);
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(100, 200, 255, 0.2) 0%, transparent 70%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .info-card:hover {
             border-color: var(--accent-1);
-            transform: translateY(-5px);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(100, 200, 255, 0.3);
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.2) 0%, rgba(167, 139, 250, 0.1) 100%);
         }
 
         body.light-mode .info-card:hover {
-            border-color: rgba(0, 100, 255, 0.3);
+            border-color: rgba(0, 100, 255, 0.6);
+            box-shadow: 0 20px 60px rgba(0, 100, 255, 0.2);
+            background: linear-gradient(135deg, rgba(0, 100, 255, 0.15) 0%, rgba(74, 144, 255, 0.08) 100%);
         }
 
         .info-card:hover::before {
@@ -431,18 +436,39 @@
         }
 
         .info-card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.4s ease;
+            display: inline-block;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, rgba(100, 200, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-card:hover .info-card-icon {
+            transform: scale(1.15) rotate(10deg);
         }
 
         .info-card h3 {
             color: var(--accent-1);
             margin-bottom: 1rem;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
         }
 
         .info-card p {
-            color: var(--text-tertiary);
-            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .info-card strong {
+            color: var(--text-primary);
+            font-weight: 600;
         }
 
         /* Modal */
@@ -752,17 +778,17 @@
             <div class="info-card">
                 <div class="info-card-icon">⏰</div>
                 <h3>Worship Times</h3>
-                <p><strong>Sunday:</strong> 10:00 AM<br><strong>Wednesday:</strong> 7:00 PM</p>
+                <p><strong>Sunday:</strong> 10:30 AM  & Sunday School Whizz Kids</p>
             </div>
             <div class="info-card">
                 <div class="info-card-icon">📍</div>
                 <h3>Location</h3>
-                <p>123 Faith Street<br>Your City, State 12345</p>
+                <p>Mount Pleasant Baptist Church<br>Barry, United Kingdom</p>
             </div>
             <div class="info-card">
                 <div class="info-card-icon">📞</div>
                 <h3>Contact Us</h3>
-                <p>Phone: (555) 123-4567<br>Email: info@mpbc.org</p>
+                <p>Phone: 01446 735915<br>Email: mpbc.co.uk</p>
             </div>
         </div>
     </section>
@@ -776,7 +802,7 @@
         <div class="modal-content">
             <button class="modal-close" id="closeModal">&times;</button>
             <h2 class="modal-title">Join Us Sunday</h2>
-            <p class="modal-text">We'd love to see you at our worship service! Choose how you'd like to get in touch.</p>
+            <p class="modal-text">We'd love to see you at our worship service! Choose how you'd like to get in touch if you feel uneasy otherwise all are welcome.</p>
             <div class="modal-buttons">
                 <button id="copyPhone" class="modal-btn modal-btn-primary">
                     <span>📞</span> Copy Phone Number
@@ -797,8 +823,8 @@
         const copyPhoneBtn = document.getElementById('copyPhone');
         const copyEmailBtn = document.getElementById('copyEmail');
 
-        const phoneNumber = '(555) 123-4567';
-        const emailAddress = 'info@mpbc.org';
+        const phoneNumber = '01446 735915';
+        const emailAddress = '@mpbc.co.uk';
 
         // Check for saved theme preference or default to dark mode
         const currentTheme = localStorage.getItem('theme') || 'dark';
