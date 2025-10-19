@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mount Pleasant Baptist Church</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            --bg-secondary: rgba(30, 35, 70, 0.4);
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-tertiary: #a0a0a0;
+            --accent-1: #64c8ff;
+            --accent-2: #a78bfa;
+            --card-border: rgba(100, 200, 255, 0.2);
+            --nav-bg: rgba(10, 14, 39, 0.8);
+            --footer-border: rgba(100, 200, 255, 0.1);
+        }
+
+        body.light-mode {
+            --bg-primary: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 50%, #f0f4ff 100%);
+            --bg-secondary: rgba(100, 150, 255, 0.08);
+            --text-primary: #1a1f3a;
+            --text-secondary: #4a5678;
+            --text-tertiary: #6a7a99;
+            --accent-1: #0066ff;
+            --accent-2: #4a90ff;
+            --card-border: rgba(0, 100, 255, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --footer-border: rgba(0, 100, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            background: var(--nav-bg);
+            padding: 1.5rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+            animation: slideDown 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s ease;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(100, 200, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        body.light-mode .hero::before {
+            background: radial-gradient(circle, rgba(0, 100, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+            pointer-events: none;
+        }
+
+        body.light-mode .hero::after {
+            background: radial-gradient(circle, rgba(74, 144, 255, 0.08) 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 50%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: #000;
+            box-shadow: 0 0 30px rgba(100, 200, 255, 0.4);
+        }
+
+        body.light-mode .btn-primary {
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 100, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(100, 200, 255, 0.6);
+        }
+
+        body.light-mode .btn-primary:hover {
+            box-shadow: 0 10px 40px rgba(0, 100, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-1);
+            border: 2px solid var(--accent-1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(100, 200, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        body.light-mode .btn-secondary:hover {
+            background: rgba(0, 100, 255, 0.08);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-1);
+        }
+
+        body.light-mode .gallery-item:hover {
+            border-color: rgba(0, 100, 255, 0.5);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(167, 139, 250, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(100, 200, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .image-placeholder {
+            background: linear-gradient(135deg, rgba(0, 100, 255, 0.2), rgba(74, 144, 255, 0.15));
+            color: rgba(0, 100, 255, 0.4);
+        }
+
+        .gallery-item:hover .image-placeholder {
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.5), rgba(167, 139, 250, 0.4));
+        }
+
+        body.light-mode .gallery-item:hover .image-placeholder {
+            background: linear-gradient(135deg, rgba(0, 100, 255, 0.3), rgba(74, 144, 255, 0.25));
+        }
+
+        .gallery-text {
+            padding: 2rem;
+        }
+
+        .gallery-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--accent-1);
+        }
+
+        .gallery-item p {
+            color: var(--text-tertiary);
+            line-height: 1.6;
+        }
+
+        /* Info Section */
+        .info {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--accent-1);
+            transform: translateY(-5px);
+        }
+
+        body.light-mode .info-card:hover {
+            border-color: rgba(0, 100, 255, 0.3);
+        }
+
+        .info-card:hover::before {
+            opacity: 1;
+        }
+
+        .info-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            color: var(--accent-1);
+            margin-bottom: 1rem;
+        }
+
+        .info-card p {
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--footer-border);
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Mount Pleasant Baptist Church</div>
+        <div class="nav-right">
+            <ul>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#info">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Come Join Our Worship</h1>
+            <p class="subtitle">Experience faith, community, and spiritual growth</p>
+            <p>Welcome to Mount Pleasant Baptist Church, where we gather in faith to celebrate God's love and serve our community with purpose and compassion.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Join Us Sunday</button>
+                <button class="btn btn-secondary">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <h2 class="section-title">Our Church Community</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="image-placeholder">📷</div>
+                <div class="gallery-text">
+                    <h3>Sunday Worship</h3>
+                    <p>Join us every Sunday for inspiring worship services filled with praise, prayer, and God's word.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="image-placeholder">🤝</div>
+                <div class="gallery-text">
+                    <h3>Community Service</h3>
+                    <p>We serve our community through outreach programs, feeding ministries, and charitable giving.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="image-placeholder">👨‍👩‍👧‍👦</div>
+                <div class="gallery-text">
+                    <h3>Family Events</h3>
+                    <p>Experience fellowship and fun with our family-friendly events and church gatherings throughout the year.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="image-placeholder">🎵</div>
+                <div class="gallery-text">
+                    <h3>Praise & Music</h3>
+                    <p>Our choir and worship team lead us in uplifting music that glorifies God and unites our congregation.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="image-placeholder">📚</div>
+                <div class="gallery-text">
+                    <h3>Bible Studies</h3>
+                    <p>Deepen your faith through our weekly Bible studies and spiritual education programs.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="image-placeholder">🙏</div>
+                <div class="gallery-text">
+                    <h3>Prayer Groups</h3>
+                    <p>Join our prayer circles and intercessory ministry to lift up our community and loved ones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info" id="info">
+        <h2 class="section-title">Service Information</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-card-icon">⏰</div>
+                <h3>Worship Time</h3>
+                <p><strong>Sunday:</strong> 10:30 AM<br></p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📍</div>
+                <h3>Location</h3>
+                <p>Mount Pleasant,<br>Barry, CF63 2HE</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📞</div>
+                <h3>Contact Us</h3>
+                <p>Phone: 01446 735915<br>Email: info@mpbc.org</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Mount Pleasant Baptist Church. Let gods glory shine in your life.</p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '🌙';
+        } else {
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+        });
+    </script>
+</body>
+</html>
