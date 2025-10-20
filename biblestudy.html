@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Study - Mount Pleasant Baptist Church</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            --bg-secondary: rgba(30, 35, 70, 0.4);
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --accent-1: #64c8ff;
+            --accent-2: #a78bfa;
+            --card-border: rgba(100, 200, 255, 0.2);
+            --nav-bg: rgba(10, 14, 39, 0.8);
+            --link-color: #64c8ff;
+        }
+
+        body.light-mode {
+            --bg-primary: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 50%, #f0f4ff 100%);
+            --bg-secondary: rgba(100, 150, 255, 0.08);
+            --text-primary: #1a1f3a;
+            --text-secondary: #4a5678;
+            --accent-1: #0066ff;
+            --accent-2: #4a90ff;
+            --card-border: rgba(0, 100, 255, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --link-color: #0066ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(10px);
+            background: var(--nav-bg);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+        }
+
+        nav .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 6rem auto 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-card {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            border-color: var(--accent-1);
+            transform: translateY(-4px);
+        }
+
+        .content-card h2 {
+            color: var(--accent-1);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .content-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .info-highlight {
+            background: rgba(100, 200, 255, 0.1);
+            border-left: 4px solid var(--accent-1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        body.light-mode .info-highlight {
+            background: rgba(0, 100, 255, 0.08);
+        }
+
+        .info-highlight strong {
+            color: var(--accent-1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            nav .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .container {
+                margin-top: 8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="./index.html" class="logo">← Mount Pleasant Baptist Church</a>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Bible Study</h1>
+        <p class="subtitle">Growing deeper in faith and God's Word</p>
+
+        <div class="content-card">
+            <h2>Our Bible Study Groups</h2>
+            <p>Join us for meaningful study of Scripture and discussion. All are welcome!</p>
+            
+  <div class="info-highlight"> <strong>Women of Worth (WoW)</strong> 
+  <p>This is a weekly women’s Bible-study gathering that meets <strong>Tuesdays 10:00 am–11:45 am</strong> in “The Oasis” at the church.
+  The aim is to provide a relaxed space for women of all ages to explore Scripture, 
+  support one another and grow in faith together. If you’re looking for genuine fellowship,
+  reflective study and a welcoming environment, this is a great option.</p> 
+  </div> 
+  
+  <div class="info-highlight"> <strong>Alpha Course</strong> 
+  <p>The church runs the classic non-denominational evangelistic course (Alpha Course) 
+  to introduce the Christian faith in an informal, friendly setting. 
+  The course runs on <strong>Wednesdays at 7:00 pm </strong> in the Community Hall. It provides opportunity for 
+  anyone curious about Christianity, big life questions or wanting to revisit their faith, through 
+  a mix of short teaching, discussion, and hospitality. all are welcome.</p> 
+  </div> <div class="info-highlight"> 
+  
+  <strong>Bible Study with Tim Cross</strong> 
+  <p>Every <strong>Thursday from 7:00 pm to 8:30 pm</strong> the church meets for a Bible study led by Tim Cross,
+  in the church hall. This is open to men and women, and provides a deeper dive into Scripture in a mid-week setting — 
+  ideal if you want to engage with the Bible in a supportive group context.</p> 
+  </div>
+
+			
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '🌙';
+        } else {
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+        });
+    </script>
+</body>
+</html>

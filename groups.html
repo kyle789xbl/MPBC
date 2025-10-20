@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groups - Mount Pleasant Baptist Church</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            --bg-secondary: rgba(30, 35, 70, 0.4);
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --accent-1: #64c8ff;
+            --accent-2: #a78bfa;
+            --card-border: rgba(100, 200, 255, 0.2);
+            --nav-bg: rgba(10, 14, 39, 0.8);
+            --link-color: #64c8ff;
+        }
+
+        body.light-mode {
+            --bg-primary: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 50%, #f0f4ff 100%);
+            --bg-secondary: rgba(100, 150, 255, 0.08);
+            --text-primary: #1a1f3a;
+            --text-secondary: #4a5678;
+            --accent-1: #0066ff;
+            --accent-2: #4a90ff;
+            --card-border: rgba(0, 100, 255, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --link-color: #0066ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(10px);
+            background: var(--nav-bg);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+        }
+
+        nav .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 6rem auto 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-card {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            border-color: var(--accent-1);
+            transform: translateY(-4px);
+        }
+
+        .content-card h2 {
+            color: var(--accent-1);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .intro-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .info-highlight {
+            background: rgba(100, 200, 255, 0.1);
+            border-left: 4px solid var(--accent-1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        body.light-mode .info-highlight {
+            background: rgba(0, 100, 255, 0.08);
+        }
+
+        .info-highlight strong {
+            color: var(--accent-1);
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-highlight .time {
+            display: block;
+            color: var(--accent-1);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-highlight .age-group {
+            display: block;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .info-highlight p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .location {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .workers {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(100, 200, 255, 0.1);
+        }
+
+        .workers strong {
+            color: var(--accent-1);
+        }
+
+        .section-title {
+            color: var(--accent-1);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            nav .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .container {
+                margin-top: 8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="./index.html" class="logo">← Mount Pleasant Baptist Church</a>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Our Groups</h1>
+        <p class="subtitle">Connect with our community</p>
+
+        <div class="content-card">
+            <h2>Coffee Break</h2>
+            <div class="info-highlight">
+                <strong>☕ Coffee Break</strong>
+                <span class="time">Monday at 10:00 am</span>
+                <p>Take a break from the weather and join us for tea, coffee, toast and crumpets. A relaxed and welcoming space to chat and connect with the community.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>👶 Youth & Children's Groups</h2>
+            <p class="intro-text">We're a welcoming community with activities for all ages! Our youth groups are led by dedicated volunteers who create fun, safe, and nurturing environments.</p>
+
+            <div class="section-title">Sunday School – Whizz Kids</div>
+            <div class="info-highlight">
+                <strong>All ages welcome</strong>
+                <span class="time">Sundays at 10:30 am</span>
+                <span class="age-group">All ages – until they want to sit in service</span>
+                <span class="location">📍 Community Hall</span>
+                <div class="workers"><strong>Workers:</strong> June, Lynda, Rachel</div>
+            </div>
+
+            <div class="section-title">Tuesday Groups</div>
+            <div class="info-highlight">
+                <strong>🎮 Whizz Kids (Tuesday)</strong>
+                <span class="time">5:30 pm – 7:00 pm</span>
+                <span class="age-group">Reception to Year 6</span>
+                <p>Fun games and activities for younger children.</p>
+                <div class="workers"><strong>Workers:</strong> June, Lynda, Rachel</div>
+            </div>
+
+            <div class="info-highlight">
+                <strong>👥 Mount Pleasant Youth</strong>
+                <span class="time">7:15 pm – 8:45 pm</span>
+                <span class="age-group">Year 7 and above</span>
+                <p>Join our vibrant youth community for friendship, activities, and spiritual growth.</p>
+                <div class="workers"><strong>Workers:</strong> Lynda, Rachel, Chris, James</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '🌙';
+        } else {
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+        });
+    </script>
+</body>
+</html>
