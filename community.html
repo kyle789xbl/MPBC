@@ -20,6 +20,7 @@
             --accent-2: #a78bfa;
             --card-border: rgba(100, 200, 255, 0.2);
             --nav-bg: rgba(10, 14, 39, 0.8);
+            --link-color: #64c8ff;
         }
 
         body.light-mode {
@@ -31,6 +32,7 @@
             --accent-2: #4a90ff;
             --card-border: rgba(0, 100, 255, 0.15);
             --nav-bg: rgba(255, 255, 255, 0.85);
+            --link-color: #0066ff;
         }
 
         body {
@@ -145,6 +147,8 @@
             padding: 1.5rem;
             border-radius: 10px;
             margin: 2rem 0;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         body.light-mode .info-highlight {
@@ -153,6 +157,19 @@
 
         .info-highlight strong {
             color: var(--accent-1);
+        }
+
+        .info-highlight a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            display: inline-block;
+            word-break: break-all;
+        }
+
+        .info-highlight a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
         }
 
         .cta-btn {
@@ -236,7 +253,7 @@
 
 <div class="content-card">
     <h2>Vale Food Bank Needs</h2>
-    <p>We’re supporting the Vale Foodbank as they continue to help local families in need. Current urgent items include:</p>
+    <p>We're supporting the Vale Foodbank as they continue to help local families in need. Current urgent items include:</p>
     <ul>
         <li>Toothpaste</li>
         <li>Shampoo</li>
