@@ -600,7 +600,9 @@
                 padding: 3rem 1rem;
             }
         }
-		
+		#gallery, #info, #Socials {
+         scroll-margin-top: 100px;
+        }
 		.socials-container {   display: flex;   justify-content: center;   gap: 1.5rem;   align-items: center; } .social-link {   display: inline-flex;   align-items: center;   justify-content: center;   width: 50px;   height: 50px;   border-radius: 50%;   background: var(--bg-secondary);   border: 2px solid var(--card-border);   text-decoration: none;   color: var(--accent-1);   transition: all 0.3s ease;   font-size: 1.5rem; } .social-link:hover {   border-color: var(--accent-1);   color: #fff;   transform: translateY(-4px);   box-shadow: 0 8px 20px rgba(100, 200, 255, 0.3); } .social-link.facebook:hover {   background: #1877F2;   color: #fff; } .social-link.youtube:hover {   background: #FF0000;   color: #fff; }
     </style>
 	
@@ -618,7 +620,7 @@
         <div class="nav-bottom">
             <ul>
                 <li><a href="#gallery">Church Services</a></li>
-                <li><a href="#info">About Us</a></li>
+                <li><a href="#info">Information</a></li>
                 <li><a href="#Socials">Socials</a></li>
             </ul>
         </div>
@@ -631,7 +633,12 @@
             <p>Welcome to Mount Pleasant Baptist Church, where we gather in faith to celebrate God's love and serve our community with purpose and compassion.</p>
             <div class="cta-buttons">
 <a class="btn btn-primary" id="joinUsBtn" href="./sundayservice.html">Join Us Sunday</a>
-                <button class="btn btn-secondary">Learn More</button>
+                <a class="btn btn-secondary" href="./leadership_page.html">Church Leadership</a>
+            </div>
+						 <br>
+
+			 <div class="cta-buttons">
+                <a class="btn btn-secondary" href="./history_page.html">Church History</a>
             </div>
         </div>
     </section>
