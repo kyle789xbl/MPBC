@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Daily Message - Mount Pleasant Baptist Church</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            --bg-secondary: rgba(30, 35, 70, 0.4);
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --accent-1: #64c8ff;
+            --accent-2: #a78bfa;
+            --card-border: rgba(100, 200, 255, 0.2);
+            --nav-bg: rgba(10, 14, 39, 0.8);
+            --link-color: #64c8ff;
+        }
+
+        body.light-mode {
+            --bg-primary: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 50%, #f0f4ff 100%);
+            --bg-secondary: rgba(100, 150, 255, 0.08);
+            --text-primary: #1a1f3a;
+            --text-secondary: #4a5678;
+            --accent-1: #0066ff;
+            --accent-2: #4a90ff;
+            --card-border: rgba(0, 100, 255, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --link-color: #0066ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(10px);
+            background: var(--nav-bg);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+        }
+
+        nav .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 6rem auto 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .verse-card {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .verse-text {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .verse-reference {
+            color: var(--accent-1);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .date-display {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        .loading {
+            opacity: 0.6;
+        }
+
+        .spinner {
+            border: 3px solid var(--card-border);
+            border-top: 3px solid var(--accent-1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-note {
+            background: rgba(100, 200, 255, 0.1);
+            border-left: 4px solid var(--accent-1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        body.light-mode .info-note {
+            background: rgba(0, 100, 255, 0.08);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .verse-text {
+                font-size: 1.2rem;
+            }
+
+            nav .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .container {
+                margin-top: 8rem;
+            }
+
+            .verse-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="./index.html" class="logo">← Mount Pleasant Baptist Church</a>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Our Daily Message</h1>
+        <p class="subtitle">A word from Scripture to guide your day (ESV)</p>
+
+        <div class="verse-card fade-in" id="verseCard">
+            <div class="spinner" id="spinner"></div>
+            <div class="verse-text" id="verseText" style="display: none;"></div>
+            <div class="verse-reference" id="verseReference" style="display: none;"></div>
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+            <div class="date-display" id="dateDisplay"></div>
+        </div>
+
+        <div class="info-note">
+            📖 Everyone receives the same verse each day based on the date. The book is chosen by the day, and the verse by the day multiplied by the month - creating a unique daily message from the ESV!
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const verseCard = document.getElementById('verseCard');
+        const verseText = document.getElementById('verseText');
+        const verseReference = document.getElementById('verseReference');
+        const dateDisplay = document.getElementById('dateDisplay');
+        const spinner = document.getElementById('spinner');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Bible books with their abbreviations from the holybooks repo
+        const bibleBooks = [
+            { name: 'Genesis', abbr: 'GEN', testament: 'OT' },
+            { name: 'Exodus', abbr: 'EXO', testament: 'OT' },
+            { name: 'Leviticus', abbr: 'LEV', testament: 'OT' },
+            { name: 'Numbers', abbr: 'NUM', testament: 'OT' },
+            { name: 'Deuteronomy', abbr: 'DEU', testament: 'OT' },
+            { name: 'Joshua', abbr: 'JOS', testament: 'OT' },
+            { name: 'Judges', abbr: 'JDG', testament: 'OT' },
+            { name: 'Ruth', abbr: 'RUT', testament: 'OT' },
+            { name: '1 Samuel', abbr: '1SA', testament: 'OT' },
+            { name: '2 Samuel', abbr: '2SA', testament: 'OT' },
+            { name: '1 Kings', abbr: '1KI', testament: 'OT' },
+            { name: '2 Kings', abbr: '2KI', testament: 'OT' },
+            { name: '1 Chronicles', abbr: '1CH', testament: 'OT' },
+            { name: '2 Chronicles', abbr: '2CH', testament: 'OT' },
+            { name: 'Ezra', abbr: 'EZR', testament: 'OT' },
+            { name: 'Nehemiah', abbr: 'NEH', testament: 'OT' },
+            { name: 'Esther', abbr: 'EST', testament: 'OT' },
+            { name: 'Job', abbr: 'JOB', testament: 'OT' },
+            { name: 'Psalms', abbr: 'PSA', testament: 'OT' },
+            { name: 'Proverbs', abbr: 'PRO', testament: 'OT' },
+            { name: 'Ecclesiastes', abbr: 'ECC', testament: 'OT' },
+            { name: 'Song of Solomon', abbr: 'SNG', testament: 'OT' },
+            { name: 'Isaiah', abbr: 'ISA', testament: 'OT' },
+            { name: 'Jeremiah', abbr: 'JER', testament: 'OT' },
+            { name: 'Lamentations', abbr: 'LAM', testament: 'OT' },
+            { name: 'Ezekiel', abbr: 'EZK', testament: 'OT' },
+            { name: 'Daniel', abbr: 'DAN', testament: 'OT' },
+            { name: 'Hosea', abbr: 'HOS', testament: 'OT' },
+            { name: 'Joel', abbr: 'JOL', testament: 'OT' },
+            { name: 'Amos', abbr: 'AMO', testament: 'OT' },
+            { name: 'Obadiah', abbr: 'OBA', testament: 'OT' },
+            { name: 'Jonah', abbr: 'JON', testament: 'OT' },
+            { name: 'Micah', abbr: 'MIC', testament: 'OT' },
+            { name: 'Nahum', abbr: 'NAM', testament: 'OT' },
+            { name: 'Habakkuk', abbr: 'HAB', testament: 'OT' },
+            { name: 'Zephaniah', abbr: 'ZEP', testament: 'OT' },
+            { name: 'Haggai', abbr: 'HAG', testament: 'OT' },
+            { name: 'Zechariah', abbr: 'ZEC', testament: 'OT' },
+            { name: 'Malachi', abbr: 'MAL', testament: 'OT' },
+            { name: 'Matthew', abbr: 'MAT', testament: 'NT' },
+            { name: 'Mark', abbr: 'MRK', testament: 'NT' },
+            { name: 'Luke', abbr: 'LUK', testament: 'NT' },
+            { name: 'John', abbr: 'JHN', testament: 'NT' },
+            { name: 'Acts', abbr: 'ACT', testament: 'NT' },
+            { name: 'Romans', abbr: 'ROM', testament: 'NT' },
+            { name: '1 Corinthians', abbr: '1CO', testament: 'NT' },
+            { name: '2 Corinthians', abbr: '2CO', testament: 'NT' },
+            { name: 'Galatians', abbr: 'GAL', testament: 'NT' },
+            { name: 'Ephesians', abbr: 'EPH', testament: 'NT' },
+            { name: 'Philippians', abbr: 'PHP', testament: 'NT' },
+            { name: 'Colossians', abbr: 'COL', testament: 'NT' },
+            { name: '1 Thessalonians', abbr: '1TH', testament: 'NT' },
+            { name: '2 Thessalonians', abbr: '2TH', testament: 'NT' },
+            { name: '1 Timothy', abbr: '1TI', testament: 'NT' },
+            { name: '2 Timothy', abbr: '2TI', testament: 'NT' },
+            { name: 'Titus', abbr: 'TIT', testament: 'NT' },
+            { name: 'Philemon', abbr: 'PHM', testament: 'NT' },
+            { name: 'Hebrews', abbr: 'HEB', testament: 'NT' },
+            { name: 'James', abbr: 'JAS', testament: 'NT' },
+            { name: '1 Peter', abbr: '1PE', testament: 'NT' },
+            { name: '2 Peter', abbr: '2PE', testament: 'NT' },
+            { name: '1 John', abbr: '1JN', testament: 'NT' },
+            { name: '2 John', abbr: '2JN', testament: 'NT' },
+            { name: '3 John', abbr: '3JN', testament: 'NT' },
+            { name: 'Jude', abbr: 'JUD', testament: 'NT' },
+            { name: 'Revelation', abbr: 'REV', testament: 'NT' }
+        ];
+
+        // Theme toggle
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '🌙';
+        } else {
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+        });
+
+        // Display current date
+        function updateDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('en-US', options);
+            dateDisplay.textContent = today;
+        }
+
+        // Fetch verse from GitHub holybooks repo
+        async function fetchDailyVerse() {
+            try {
+                spinner.style.display = 'block';
+                verseText.style.display = 'none';
+                verseReference.style.display = 'none';
+                errorMessage.style.display = 'none';
+
+                const now = new Date();
+                const day = now.getDate();
+                const month = now.getMonth() + 1;
+                
+                // Book selection: use day to pick a book
+                const bookIndex = day % bibleBooks.length;
+                const book = bibleBooks[bookIndex];
+                
+                const url = `https://raw.githubusercontent.com/bobuk/holybooks/master/EN/${book.testament}/${book.abbr}/ESV.json`;
+                
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch book');
+                }
+
+                const bookData = await response.json();
+                
+                // The structure has a 'text' property that is an array of chapters
+                if (!bookData.text || !Array.isArray(bookData.text) || bookData.text.length === 0) {
+                    throw new Error('No chapters found');
+                }
+                
+                const chapters = bookData.text;
+                
+                // Select chapter based on day * month, but within actual range
+                const chapterIndex = ((day * month) % chapters.length);
+                const chapter = chapters[chapterIndex];
+                
+                if (!chapter || !chapter.text || !Array.isArray(chapter.text) || chapter.text.length === 0) {
+                    throw new Error('No verses found in chapter');
+                }
+                
+                // Select verse based on day + month, but within actual range
+                const verseIndex = ((day + month) % chapter.text.length);
+                const verse = chapter.text[verseIndex];
+                
+                if (!verse || !verse.text) {
+                    throw new Error('Verse not found');
+                }
+                
+                // Extract chapter number and verse number from the data
+                // Chapter name is like "1 Peter 5", extract just the number
+                const chapterNumMatch = chapter.name.match(/(\d+)$/);
+                const chapterNum = chapterNumMatch ? chapterNumMatch[1] : (chapterIndex + 1);
+                
+                // Verse ID format varies, extract just the number
+                const verseNum = verse.ID;
+                
+                // Display the verse
+                verseText.textContent = `"${verse.text}"`;
+                verseReference.textContent = `${book.name} ${chapterNum}:${verseNum}`;
+                
+                spinner.style.display = 'none';
+                verseText.style.display = 'block';
+                verseReference.style.display = 'block';
+
+                verseCard.classList.remove('fade-in');
+                void verseCard.offsetWidth;
+                verseCard.classList.add('fade-in');
+
+            } catch (error) {
+                console.error('Error fetching verse:', error);
+                spinner.style.display = 'none';
+                errorMessage.textContent = 'Unable to load today\'s verse. Trying fallback...';
+                errorMessage.style.display = 'block';
+                
+                // Retry with a fallback verse
+                setTimeout(() => {
+                    fetchFallbackVerse();
+                }, 2000);
+            }
+        }
+
+        // Fallback to a known good verse if the random one fails
+        async function fetchFallbackVerse() {
+            try {
+                const url = 'https://raw.githubusercontent.com/bobuk/holybooks/master/EN/NT/JHN/ESV.json';
+                const response = await fetch(url);
+                const bookData = await response.json();
+                
+                if (bookData.text && bookData.text.length > 0) {
+                    // Find John chapter 3
+                    const chapter3 = bookData.text.find(ch => ch.name && ch.name.includes('John 3'));
+                    
+                    if (chapter3 && chapter3.text) {
+                        const verse16 = chapter3.text.find(v => v.ID && v.ID.includes('16'));
+                        if (verse16) {
+                            verseText.textContent = `"${verse16.text}"`;
+                            verseReference.textContent = 'John 3:16';
+                            
+                            errorMessage.style.display = 'none';
+                            verseText.style.display = 'block';
+                            verseReference.style.display = 'block';
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Fallback failed:', error);
+                errorMessage.textContent = 'Unable to load verse. Please refresh the page.';
+            }
+        }
+
+        // Initialize
+        updateDate();
+        fetchDailyVerse();
+
+        // Refresh at midnight
+        function scheduleNextUpdate() {
+            const now = new Date();
+            const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+            const timeUntilMidnight = tomorrow - now;
+            
+            setTimeout(() => {
+                updateDate();
+                fetchDailyVerse();
+                scheduleNextUpdate();
+            }, timeUntilMidnight);
+        }
+
+        scheduleNextUpdate();
+    </script>
+</body>
+</html>

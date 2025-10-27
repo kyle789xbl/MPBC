@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy Bible - Mount Pleasant Baptist Church</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            --bg-secondary: rgba(30, 35, 70, 0.4);
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --accent-1: #64c8ff;
+            --accent-2: #a78bfa;
+            --card-border: rgba(100, 200, 255, 0.2);
+            --nav-bg: rgba(10, 14, 39, 0.8);
+            --page-bg: #f5f1e8;
+            --page-text: #2c2416;
+        }
+
+        body.light-mode {
+            --bg-primary: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 50%, #f0f4ff 100%);
+            --bg-secondary: rgba(100, 150, 255, 0.08);
+            --text-primary: #1a1f3a;
+            --text-secondary: #4a5678;
+            --accent-1: #0066ff;
+            --accent-2: #4a90ff;
+            --card-border: rgba(0, 100, 255, 0.15);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --page-bg: #ffffff;
+            --page-text: #1a1f3a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        body.fullscreen {
+            overflow: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(10px);
+            background: var(--nav-bg);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+        }
+
+        body.fullscreen nav {
+            transform: translateY(-100%);
+        }
+
+        nav .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        select {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            border-color: var(--accent-1);
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            color: var(--text-primary);
+            padding: 0.3rem;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .container {
+            padding: 6rem 2rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        body.fullscreen .container {
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .book-wrapper {
+            perspective: 2500px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        body.fullscreen .book-wrapper {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .book-container {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+        }
+
+        .page-holder {
+            position: relative;
+            background: var(--page-bg);
+            border-radius: 8px;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .page {
+            padding: 3rem;
+            color: var(--page-text);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            max-height: 70vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        body.fullscreen .page {
+            max-height: 85vh;
+            padding: 4rem;
+        }
+
+        .page::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .page::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 5px;
+        }
+
+        .page::-webkit-scrollbar-thumb {
+            background: var(--accent-1);
+            border-radius: 5px;
+        }
+
+        .page::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-2);
+        }
+
+        .chapter-title {
+            font-size: 2rem;
+            color: var(--accent-1);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        body.light-mode .chapter-title {
+            color: var(--accent-2);
+        }
+
+        .verse {
+            margin-bottom: 1rem;
+        }
+
+        .verse-number {
+            color: var(--accent-1);
+            font-weight: 700;
+            font-size: 0.85rem;
+            vertical-align: super;
+            margin-right: 0.4rem;
+        }
+
+        .page-fold {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(to left, rgba(0,0,0,0.15), transparent);
+            transform-origin: right center;
+            pointer-events: none;
+            transition: width 0.6s ease;
+            z-index: 10;
+        }
+
+        .page-fold::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--page-bg);
+            transform-origin: right center;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-container.folding-right .page-fold {
+            animation: foldRight 0.8s ease-out forwards;
+        }
+
+        .book-container.folding-left .page-fold {
+            animation: foldLeft 0.8s ease-out forwards;
+        }
+
+        @keyframes foldRight {
+            0% { 
+                width: 0;
+            }
+            50% { 
+                width: 50%;
+            }
+            100% { 
+                width: 0;
+            }
+        }
+
+        @keyframes foldLeft {
+            0% { 
+                width: 0;
+            }
+            50% { 
+                width: 50%;
+            }
+            100% { 
+                width: 0;
+            }
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(100, 200, 255, 0.3);
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 200, 255, 0.4);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            border: 3px solid var(--card-border);
+            border-top: 3px solid var(--accent-1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .drag-hint {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 5rem 1rem 2rem;
+            }
+
+            .page {
+                padding: 2rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .chapter-title {
+                font-size: 1.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            nav .nav-content {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="./index.html" class="logo">← Mount Pleasant Baptist Church</a>
+            <div class="nav-controls">
+                <select id="bookSelect">
+                    <option value="">Select Book...</option>
+                </select>
+                <select id="chapterSelect" disabled>
+                    <option value="">Select Chapter...</option>
+                </select>
+            </div>
+            <div class="nav-right">
+                <button class="icon-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
+                <button class="icon-btn" id="themeToggle" title="Toggle Theme">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="book-wrapper">
+            <div class="book-container" id="bookContainer">
+                <div class="page-holder">
+                    <div class="page" id="mainPage">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            Select a book to begin reading the Holy Bible (ESV)
+                        </div>
+                    </div>
+                    <div class="page-fold" id="pageFold"></div>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" disabled>← Previous</button>
+                <div class="page-info" id="pageInfo"></div>
+                <button class="nav-btn" id="nextBtn" disabled>Next →</button>
+            </div>
+            <div class="drag-hint">💡 Drag across the page or use arrow keys to navigate</div>
+        </div>
+    </div>
+
+    <script>
+        const bibleBooks = [
+            { name: 'Genesis', abbr: 'GEN', testament: 'OT' },
+            { name: 'Exodus', abbr: 'EXO', testament: 'OT' },
+            { name: 'Leviticus', abbr: 'LEV', testament: 'OT' },
+            { name: 'Numbers', abbr: 'NUM', testament: 'OT' },
+            { name: 'Deuteronomy', abbr: 'DEU', testament: 'OT' },
+            { name: 'Joshua', abbr: 'JOS', testament: 'OT' },
+            { name: 'Judges', abbr: 'JDG', testament: 'OT' },
+            { name: 'Ruth', abbr: 'RUT', testament: 'OT' },
+            { name: '1 Samuel', abbr: '1SA', testament: 'OT' },
+            { name: '2 Samuel', abbr: '2SA', testament: 'OT' },
+            { name: '1 Kings', abbr: '1KI', testament: 'OT' },
+            { name: '2 Kings', abbr: '2KI', testament: 'OT' },
+            { name: '1 Chronicles', abbr: '1CH', testament: 'OT' },
+            { name: '2 Chronicles', abbr: '2CH', testament: 'OT' },
+            { name: 'Ezra', abbr: 'EZR', testament: 'OT' },
+            { name: 'Nehemiah', abbr: 'NEH', testament: 'OT' },
+            { name: 'Esther', abbr: 'EST', testament: 'OT' },
+            { name: 'Job', abbr: 'JOB', testament: 'OT' },
+            { name: 'Psalms', abbr: 'PSA', testament: 'OT' },
+            { name: 'Proverbs', abbr: 'PRO', testament: 'OT' },
+            { name: 'Ecclesiastes', abbr: 'ECC', testament: 'OT' },
+            { name: 'Song of Solomon', abbr: 'SNG', testament: 'OT' },
+            { name: 'Isaiah', abbr: 'ISA', testament: 'OT' },
+            { name: 'Jeremiah', abbr: 'JER', testament: 'OT' },
+            { name: 'Lamentations', abbr: 'LAM', testament: 'OT' },
+            { name: 'Ezekiel', abbr: 'EZK', testament: 'OT' },
+            { name: 'Daniel', abbr: 'DAN', testament: 'OT' },
+            { name: 'Hosea', abbr: 'HOS', testament: 'OT' },
+            { name: 'Joel', abbr: 'JOL', testament: 'OT' },
+            { name: 'Amos', abbr: 'AMO', testament: 'OT' },
+            { name: 'Obadiah', abbr: 'OBA', testament: 'OT' },
+            { name: 'Jonah', abbr: 'JON', testament: 'OT' },
+            { name: 'Micah', abbr: 'MIC', testament: 'OT' },
+            { name: 'Nahum', abbr: 'NAM', testament: 'OT' },
+            { name: 'Habakkuk', abbr: 'HAB', testament: 'OT' },
+            { name: 'Zephaniah', abbr: 'ZEP', testament: 'OT' },
+            { name: 'Haggai', abbr: 'HAG', testament: 'OT' },
+            { name: 'Zechariah', abbr: 'ZEC', testament: 'OT' },
+            { name: 'Malachi', abbr: 'MAL', testament: 'OT' },
+            { name: 'Matthew', abbr: 'MAT', testament: 'NT' },
+            { name: 'Mark', abbr: 'MRK', testament: 'NT' },
+            { name: 'Luke', abbr: 'LUK', testament: 'NT' },
+            { name: 'John', abbr: 'JHN', testament: 'NT' },
+            { name: 'Acts', abbr: 'ACT', testament: 'NT' },
+            { name: 'Romans', abbr: 'ROM', testament: 'NT' },
+            { name: '1 Corinthians', abbr: '1CO', testament: 'NT' },
+            { name: '2 Corinthians', abbr: '2CO', testament: 'NT' },
+            { name: 'Galatians', abbr: 'GAL', testament: 'NT' },
+            { name: 'Ephesians', abbr: 'EPH', testament: 'NT' },
+            { name: 'Philippians', abbr: 'PHP', testament: 'NT' },
+            { name: 'Colossians', abbr: 'COL', testament: 'NT' },
+            { name: '1 Thessalonians', abbr: '1TH', testament: 'NT' },
+            { name: '2 Thessalonians', abbr: '2TH', testament: 'NT' },
+            { name: '1 Timothy', abbr: '1TI', testament: 'NT' },
+            { name: '2 Timothy', abbr: '2TI', testament: 'NT' },
+            { name: 'Titus', abbr: 'TIT', testament: 'NT' },
+            { name: 'Philemon', abbr: 'PHM', testament: 'NT' },
+            { name: 'Hebrews', abbr: 'HEB', testament: 'NT' },
+            { name: 'James', abbr: 'JAS', testament: 'NT' },
+            { name: '1 Peter', abbr: '1PE', testament: 'NT' },
+            { name: '2 Peter', abbr: '2PE', testament: 'NT' },
+            { name: '1 John', abbr: '1JN', testament: 'NT' },
+            { name: '2 John', abbr: '2JN', testament: 'NT' },
+            { name: '3 John', abbr: '3JN', testament: 'NT' },
+            { name: 'Jude', abbr: 'JUD', testament: 'NT' },
+            { name: 'Revelation', abbr: 'REV', testament: 'NT' }
+        ];
+
+        let currentBook = null;
+        let currentBookData = null;
+        let currentChapterIndex = 0;
+        let isAnimating = false;
+
+        const bookSelect = document.getElementById('bookSelect');
+        const chapterSelect = document.getElementById('chapterSelect');
+        const mainPage = document.getElementById('mainPage');
+        const bookContainer = document.getElementById('bookContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageInfo = document.getElementById('pageInfo');
+        const themeToggle = document.getElementById('themeToggle');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const body = document.body;
+
+        // Populate book select
+        bibleBooks.forEach((book, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = book.name;
+            bookSelect.appendChild(option);
+        });
+
+        // Theme toggle
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '🌙';
+        } else {
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+        });
+
+        // Fullscreen toggle
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                body.classList.add('fullscreen');
+            } else {
+                document.exitFullscreen();
+                body.classList.remove('fullscreen');
+            }
+        });
+
+        // Listen for fullscreen changes
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                body.classList.remove('fullscreen');
+            }
+        });
+
+        // Book selection
+        bookSelect.addEventListener('change', async (e) => {
+            const bookIndex = e.target.value;
+            if (!bookIndex) return;
+
+            currentBook = bibleBooks[bookIndex];
+            await loadBook(currentBook);
+        });
+
+        // Chapter selection
+        chapterSelect.addEventListener('change', (e) => {
+            const chapterIndex = parseInt(e.target.value);
+            if (isNaN(chapterIndex)) return;
+            currentChapterIndex = chapterIndex;
+            displayChapter();
+        });
+
+        async function loadBook(book) {
+            try {
+                mainPage.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+                chapterSelect.disabled = true;
+                
+                const url = `https://raw.githubusercontent.com/bobuk/holybooks/master/EN/${book.testament}/${book.abbr}/ESV.json`;
+                const response = await fetch(url);
+                
+                if (!response.ok) throw new Error('Failed to load book');
+                
+                currentBookData = await response.json();
+                
+                // Populate chapter select
+                chapterSelect.innerHTML = '<option value="">Select Chapter...</option>';
+                currentBookData.text.forEach((chapter, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = `Chapter ${index + 1}`;
+                    chapterSelect.appendChild(option);
+                });
+                
+                chapterSelect.disabled = false;
+                currentChapterIndex = 0;
+                chapterSelect.value = 0;
+                displayChapter();
+                
+            } catch (error) {
+                console.error('Error loading book:', error);
+                mainPage.innerHTML = '<div class="loading">Error loading book. Please try another.</div>';
+            }
+        }
+
+        function displayChapter() {
+            if (!currentBookData || !currentBookData.text) return;
+            
+            const chapter = currentBookData.text[currentChapterIndex];
+            if (!chapter) return;
+            
+            mainPage.innerHTML = formatChapter(chapter, currentChapterIndex);
+            
+            // Update navigation
+            prevBtn.disabled = currentChapterIndex === 0;
+            nextBtn.disabled = currentChapterIndex >= currentBookData.text.length - 1;
+            
+            // Update page info
+            pageInfo.textContent = `Chapter ${currentChapterIndex + 1} of ${currentBookData.text.length}`;
+            
+            // Update chapter select
+            chapterSelect.value = currentChapterIndex;
+            
+            // Scroll to top
+            mainPage.scrollTop = 0;
+        }
+
+        function formatChapter(chapter, index) {
+            let html = `<div class="chapter-title">${currentBook.name} ${index + 1}</div>`;
+            
+            chapter.text.forEach(verse => {
+                html += `<div class="verse"><span class="verse-number">${verse.ID}</span>${verse.text}</div>`;
+            });
+            
+            return html;
+        }
+
+        function changePage(direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            bookContainer.classList.add(direction === 'next' ? 'folding-right' : 'folding-left');
+            
+            setTimeout(() => {
+                if (direction === 'next') {
+                    currentChapterIndex++;
+                } else {
+                    currentChapterIndex--;
+                }
+                displayChapter();
+            }, 400);
+
+            setTimeout(() => {
+                bookContainer.classList.remove('folding-right', 'folding-left');
+                isAnimating = false;
+            }, 800);
+        }
+
+        // Navigation buttons
+        prevBtn.addEventListener('click', () => {
+            if (currentChapterIndex > 0 && !isAnimating) {
+                changePage('prev');
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentChapterIndex < currentBookData.text.length - 1 && !isAnimating) {
+                changePage('next');
+            }
+        });
+
+        // Drag to turn pages
+        let startX = 0;
+        let isDragging = false;
+
+        mainPage.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+        });
+
+        mainPage.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        document.addEventListener('mouseup', (e) => {
+            if (!isDragging || !currentBookData) return;
+            isDragging = false;
+            
+            const endX = e.clientX;
+            const diff = endX - startX;
+            
+            if (Math.abs(diff) > 100) {
+                if (diff > 0 && currentChapterIndex > 0) {
+                    changePage('prev');
+                } else if (diff < 0 && currentChapterIndex < currentBookData.text.length - 1) {
+                    changePage('next');
+                }
+            }
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!isDragging || !currentBookData) return;
+            isDragging = false;
+            
+            const endX = e.changedTouches[0].clientX;
+            const diff = endX - startX;
+            
+            if (Math.abs(diff) > 100) {
+                if (diff > 0 && currentChapterIndex > 0) {
+                    changePage('prev');
+                } else if (diff < 0 && currentChapterIndex < currentBookData.text.length - 1) {
+                    changePage('next');
+                }
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!currentBookData) return;
+            
+            if (e.key === 'ArrowLeft' && !prevBtn.disabled && !isAnimating) {
+                changePage('prev');
+            } else if (e.key === 'ArrowRight' && !nextBtn.disabled && !isAnimating) {
+                changePage('next');
+            }
+        });
+    </script>
+</body>
+</html>
