@@ -480,24 +480,39 @@
     </div>
 
     <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        if (currentTheme === 'light') {
-            body.classList.add('light-mode');
-            themeToggle.textContent = '🌙';
-        } else {
-            themeToggle.textContent = '☀️';
+        // Initialize theme on page load
+        function initializeTheme() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            
+            if (currentTheme === 'light') {
+                body.classList.add('light-mode');
+                themeToggle.textContent = '☀️';
+            } else {
+                body.classList.remove('light-mode');
+                themeToggle.textContent = '🌙';
+            }
         }
 
-        themeToggle.addEventListener('click', () => {
+        // Toggle theme function
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
             body.classList.toggle('light-mode');
             const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
             localStorage.setItem('theme', theme);
-            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+            themeToggle.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+        // Set up theme toggle button
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
         });
 
+        // Toggle bio function
         function toggleBio(element) {
             const card = element.classList.contains('leader-card') ? element : element.closest('.leader-card');
             const bio = card.querySelector('.leader-bio');
@@ -505,24 +520,6 @@
             card.classList.toggle('expanded');
             bio.classList.toggle('active');
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const themeToggle = document.getElementById('themeToggle');
-            const body = document.body;
-
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            if (currentTheme === 'light') {
-                body.classList.add('light-mode');
-                themeToggle.textContent = '🌙';
-            } else {
-                themeToggle.textContent = '☀️';
-            }
-
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
-                const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
-                localStorage.setItem('theme', theme);
-                themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
-            });
-        });
     </script>
+</body>
+</html>
