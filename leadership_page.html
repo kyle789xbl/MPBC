@@ -146,48 +146,113 @@
             margin-bottom: 1rem;
         }
 
-        .leadership-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
+
 
         .leader-card {
-            background: rgba(100, 200, 255, 0.08);
+            background: var(--bg-secondary);
             border: 1px solid var(--card-border);
             border-radius: 15px;
             padding: 1.5rem;
-            text-align: center;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .leader-card:hover {
             border-color: var(--accent-1);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(100, 200, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(100, 200, 255, 0.15);
         }
 
         body.light-mode .leader-card {
             background: rgba(0, 100, 255, 0.05);
         }
 
+        .leader-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .leader-profile {
+            min-width: 80px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--accent-1);
+            flex-shrink: 0;
+        }
+
+        .leader-profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .leader-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .leader-info {
+            text-align: left;
+            flex: 1;
         }
 
         .leader-role {
             color: var(--accent-1);
             font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
         }
 
-        .leader-names {
-            color: var(--text-secondary);
+        .leader-name {
+            color: var(--text-primary);
+            font-weight: 500;
             font-size: 0.95rem;
-            line-height: 1.6;
+            margin-bottom: 0.25rem;
+        }
+
+        .leader-contact {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .expand-icon {
+            color: var(--accent-1);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .leader-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .leader-bio {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-top: 0;
+            font-size: 0.95rem;
+        }
+
+        .leader-bio.active {
+            max-height: 1000px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .info-highlight {
@@ -257,52 +322,135 @@
             <p>Our church is blessed with dedicated leaders who serve in various capacities to support our congregation and community.</p>
 
             <div class="leadership-grid">
-                <div class="leader-card">
-                    <div class="leader-icon">✝️</div>
-                    <div class="leader-role">Pastor in Training</div>
-                    <div class="leader-names">James Curtis</div>
+                <div class="leader-card" onclick="toggleBio(this)">
+                    <div class="leader-header">
+                        <div class="leader-profile">
+                            <img src="./images/James.png" alt="James Curtis">
+                        </div>
+                        <div class="leader-info">
+                            <div class="leader-role">Pastor in Training</div>
+                            <div class="leader-name">James Curtis</div>
+                            <div class="leader-contact">📞 07565 379131</div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="leader-bio">
+                        <p>Hey everyone, thank you so much for visiting our website, and I wanted to offer you the warmest of welcomes. Our prayer is that you find this a place where you can find true fellowship and a strong sense of belonging.</p>
+                        <p>A little bit about me, I have walked with the Lord since I was 14, and when I was 26, I felt the pull to ministry, not knowing what that entailed. By the time I reached 36, the Lord called me and my family to move from our home in Dorset to beautiful Barry, South Wales. God has certainly blessed us every step of the way, and we cannot wait to see what He has in store for Mount Pleasant.</p>
+                        <p>Hope to see you soon at our Sunday service or weekly events, as I said, you are always welcome!</p>
+                    </div>
                 </div>
 
-                <div class="leader-card">
-                    <div class="leader-icon">👥</div>
-                    <div class="leader-role">Youth Leaders</div>
-                    <div class="leader-names">Rachel, Lynda, Chris, James</div>
+                <div class="leader-card" onclick="toggleBio(this)">
+                    <div class="leader-header">
+                        <div class="leader-profile">
+                            <img src="./images/Youth-Leaders.png" alt="Youth Leaders">
+                        </div>
+                        <div class="leader-info">
+                            <div class="leader-role">Empty</div>
+                            <div class="leader-name">Empty</div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="leader-bio">
+                        <p>Our youth leaders are dedicated to nurturing the next generation in their faith journey. If you'd like to share more about yourself, we'd love to hear from you!</p>
+                    </div>
                 </div>
 
-                <div class="leader-card">
-                    <div class="leader-icon">📖</div>
-                    <div class="leader-role">Sunday School</div>
-                    <div class="leader-names">June, Lynda, Rachel</div>
+                <div class="leader-card" onclick="toggleBio(this)">
+                    <div class="leader-header">
+                        <div class="leader-profile">
+                            <img src="./images/Sunday-School.png" alt="Sunday School">
+                        </div>
+                        <div class="leader-info">
+                            <div class="leader-role">Empty</div>
+                            <div class="leader-name">Empty</div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="leader-bio">
+                        <p>Our Sunday School leaders are committed to helping our younger members grow in their understanding of scripture and faith. If you'd like to share more about yourself, we'd love to hear from you!</p>
+                    </div>
                 </div>
 
-                <div class="leader-card">
-                    <div class="leader-icon">🎵</div>
-                    <div class="leader-role">Worship Team</div>
-                    <div class="leader-names">Our dedicated musicians and singers</div>
+                <div class="leader-card" onclick="toggleBio(this)">
+                    <div class="leader-header">
+                        <div class="leader-profile">
+                            <img src="./images/Worship-Team.png" alt="Worship Team">
+                        </div>
+                        <div class="leader-info">
+                            <div class="leader-role">Empty</div>
+                            <div class="leader-name">Empty</div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="leader-bio">
+                        <p>Our worship team leads us in uplifting and meaningful worship experiences. If you'd like to share more about yourself and your role, we'd love to hear from you!</p>
+                    </div>
                 </div>
 
-                <div class="leader-card">
-                    <div class="leader-icon">🤝</div>
-                    <div class="leader-role">Deacons</div>
-                    <div class="leader-names">Serving the practical needs of our church</div>
+                <div class="leader-card" onclick="toggleBio(this)">
+                    <div class="leader-header">
+                        <div class="leader-profile">
+                            <img src="./images/Deacons.png" alt="Deacons">
+                        </div>
+                        <div class="leader-info">
+                            <div class="leader-role">Empty</div>
+                            <div class="leader-name">Empty</div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="leader-bio">
+                        <p>Our deacons serve with compassion and dedication, addressing the practical needs of our church family. If you'd like to share more about yourself, we'd love to hear from you!</p>
+                    </div>
                 </div>
 
-                <div class="leader-card">
-                    <div class="leader-icon">🙏</div>
-                    <div class="leader-role">Elders</div>
-                    <div class="leader-names">Providing spiritual guidance and oversight</div>
+                <div class="leader-card" onclick="toggleBio(this)">
+                    <div class="leader-header">
+                        <div class="leader-profile">
+                            <img src="./images/Elders.png" alt="Elders">
+                        </div>
+                        <div class="leader-info">
+                            <div class="leader-role">Empty</div>
+                            <div class="leader-name">Empty</div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="leader-bio">
+                        <p>Our elders provide spiritual guidance and oversight to our church community. If you'd like to share more about yourself, we'd love to hear from you!</p>
+                    </div>
                 </div>
 
-                <div class="leader-card">
-                    <div class="leader-icon">❤️</div>
-                    <div class="leader-role">Pastoral Care</div>
-                    <div class="leader-names">Supporting our congregation with care and compassion</div>
+                <div class="leader-card" onclick="toggleBio(this)">
+                    <div class="leader-header">
+                        <div class="leader-profile">
+                            <img src="./images/Pastoral-Care.png" alt="Pastoral Care">
+                        </div>
+                        <div class="leader-info">
+                            <div class="leader-role">Empty</div>
+                            <div class="leader-name">Empty</div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="leader-bio">
+                        <p>Our pastoral care team is here to support you during times of joy and challenge. If you'd like to share more about yourself, we'd love to hear from you!</p>
+                    </div>
                 </div>
 
-                <div class="leader-card">
-                    <div class="leader-icon">👶</div>
-                    <div class="leader-role">Children's Ministry</div>
-                    <div class="leader-names">June, Lynda, Rachel, Dawn, Margaret</div>
+                <div class="leader-card" onclick="toggleBio(this)">
+                    <div class="leader-header">
+                        <div class="leader-profile">
+                            <img src="./images/Childrens-Ministry.png" alt="Children's Ministry">
+                        </div>
+                        <div class="leader-info">
+                            <div class="leader-role">Empty</div>
+                            <div class="leader-name">Empty</div>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="leader-bio">
+                        <p>Our children's ministry leaders are passionate about creating a nurturing and fun environment for our youngest members to learn and grow in their faith. If you'd like to share more about yourself, we'd love to hear from you!</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -349,6 +497,32 @@
             localStorage.setItem('theme', theme);
             themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
         });
+
+        function toggleBio(element) {
+            const card = element.classList.contains('leader-card') ? element : element.closest('.leader-card');
+            const bio = card.querySelector('.leader-bio');
+            
+            card.classList.toggle('expanded');
+            bio.classList.toggle('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            if (currentTheme === 'light') {
+                body.classList.add('light-mode');
+                themeToggle.textContent = '🌙';
+            } else {
+                themeToggle.textContent = '☀️';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+                const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+                localStorage.setItem('theme', theme);
+                themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+            });
+        });
     </script>
-</body>
-</html>
